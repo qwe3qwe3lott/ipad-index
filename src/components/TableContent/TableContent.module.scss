@@ -1,0 +1,33 @@
+@import "../../variables";
+.container {
+  padding: 0.3em 0;
+  height: 50vh;
+  overflow-y: auto;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: grid;
+}
+.loadingContainer {
+  display: grid;
+}
+.container::-webkit-scrollbar {
+  width: 0.2em;
+}
+.container::-webkit-scrollbar-thumb {
+  background-color: $secondary-color;
+  border-radius: 0.1em;
+}
+.loading {
+  height: 4em;
+  width: 4em;
+  place-self: center;
+}
+.element {
+  display: flex;
+  width: 100%;
+  padding: 0.3em 0;
+}
+.span {
+  text-align: center;
+}
