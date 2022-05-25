@@ -1,9 +1,15 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 
 import styles from './TableFooter.module.scss';
 import {useAppDispatch, useAppSelector} from '../../hooks/typedReduxHooks';
-import {RowsPerPage} from '../../store/slices/table/types';
 import {setCurrentPage, setRowsPerPage} from '../../store/slices/table';
+import {
+	useFirstPageFlag,
+	useLastPageFlag, usePageInfo,
+	useRowsPerPageList,
+	useTotalPages,
+	useTotalPagesArray
+} from '../../hooks/tableHooks';
 
 const TableFooter: React.FC = () => {
 	const totalRows = useAppSelector(state => state.table.indexValues.length);
@@ -11,34 +17,16 @@ const TableFooter: React.FC = () => {
 	const rowsPerPage = useAppSelector(state => state.table.rowsPerPage);
 	const dispatch = useAppDispatch();
 
-	const totalPages: number = useMemo(() => {
-		const value = Math.ceil(totalRows / rowsPerPage);
-		// Table heeds to has at less one page
-		return value < 1 ? 1 : value;
-	}, [totalRows, rowsPerPage]);
+	const totalPages = useTotalPages(totalRows, rowsPerPage);
 
-	const isThisFirstPage: boolean = useMemo(() => 1 === currentPage, [currentPage]);
-	const isThisLastPage: boolean = useMemo(() => totalPages === currentPage, [totalPages, currentPage]);
+	const isThisFirstPage = useFirstPageFlag(currentPage);
+	const isThisLastPage = useLastPageFlag(currentPage, totalPages);
 
-	const pageInfo: string = useMemo(() => {
-		if (totalRows === 0) return '';
-		let lastPageRows: number = totalRows % rowsPerPage;
-		if (lastPageRows === 0) lastPageRows = rowsPerPage;
+	const pageInfo = usePageInfo(currentPage, totalRows, rowsPerPage, isThisLastPage);
 
-		const lastRowOnCurrentPage: number = isThisLastPage ? totalRows : currentPage * rowsPerPage;
-		const firstRowOnCurrentPage: number = lastRowOnCurrentPage - (isThisLastPage ? lastPageRows : rowsPerPage) + 1;
-		return `${firstRowOnCurrentPage}-${lastRowOnCurrentPage} of ${totalRows}`;
-	}, [totalRows, currentPage, rowsPerPage]);
+	const rowsPerPageList = useRowsPerPageList();
 
-	const rowsPerPageList: number[] = useMemo(() => {
-		let array: [string | RowsPerPage, string | RowsPerPage][] = Object.entries(RowsPerPage);
-		// First part of array contains duplicates
-		array = array.splice(0, array.length/2);
-		// There is necessity to get only enum values which are numbers
-		return array.map(el => el[0] as number);
-	}, []);
-
-	const totalPagesArray: number[] = useMemo(() => Array.from({length: totalPages}, (_, i) => i + 1), [totalPages]);
+	const totalPagesArray = useTotalPagesArray(totalPages);
 
 	return(<div className={styles.container}>
 		<p className={styles.pageInfo}>{pageInfo}</p>

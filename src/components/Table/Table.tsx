@@ -4,8 +4,10 @@ import styles from './Table.module.scss';
 import TableHeader from '../TableHeader';
 import TableContent from '../TableContent';
 import TableFooter from '../TableFooter';
-import {ColumnModes, ColumnSetup, ColumnWidthMetrics} from '../../types/ColumnSetup';
+import {ColumnSetup} from '../../types/ColumnSetup';
 import {IndexValue} from '../../types/IndexValue';
+import {ColumnModes} from '../../enums/ColumnModes';
+import {ColumnWidthMetrics} from '../../enums/ColumnWidthMetrics';
 
 const Table: React.FC = () => {
 	const columnSetups: ColumnSetup<IndexValue>[] = [

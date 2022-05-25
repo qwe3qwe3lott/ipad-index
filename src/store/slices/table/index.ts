@@ -1,9 +1,10 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RowsPerPage, TableState} from './types';
+import {TableState} from './types';
 import {RootState} from '../../index';
 import {setIndexValues} from '../merge';
 import {SortSetup} from '../../../types/SortSetup';
 import {IndexValue} from '../../../types/IndexValue';
+import {RowsPerPage} from '../../../enums/RowsPerPage';
 
 const initialState: TableState = {
 	selectedYear: 0,

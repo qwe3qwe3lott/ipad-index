@@ -1,12 +1,13 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 
 import styles from './TableHeader.module.scss';
-import {ColumnSetup, ColumnWidthMetrics} from '../../types/ColumnSetup';
+import {ColumnSetup} from '../../types/ColumnSetup';
 import notSorted from '../../assets/not-sorted.svg';
 import sorted from '../../assets/sorted.svg';
 import {useAppDispatch, useAppSelector} from '../../hooks/typedReduxHooks';
 import {setSortSetup} from '../../store/slices/table';
 import {IndexValue} from '../../types/IndexValue';
+import {useGetColumnWidth} from '../../hooks/tableHooks';
 
 type Props = {
 	columnSetups: ColumnSetup<IndexValue>[]
@@ -16,9 +17,7 @@ const TableHeader: React.FC<Props> = ({columnSetups}) => {
 	const sortSetup = useAppSelector(state => state.table.sortSetup);
 	const dispatch = useAppDispatch();
 
-	const getColumnWidth = useCallback((setup: ColumnSetup<IndexValue>) => {
-		return setup.width ? { 'minWidth': `${setup.width.value}${ColumnWidthMetrics[setup.width.metric]}` } : { width: '100%' };
-	}, []);
+	const getColumnWidth = useGetColumnWidth<IndexValue>();
 
 	return(<div className={styles.container}>
 		{columnSetups.map(columnSetup => <button

@@ -1,11 +1,5 @@
-export enum ColumnWidthMetrics {
-	EM = 'EM',
-	PX = 'PX'
-}
-
-export enum ColumnModes {
-	PERCENT = 'percent'
-}
+import {ColumnWidthMetrics} from '../enums/ColumnWidthMetrics';
+import {ColumnModes} from '../enums/ColumnModes';
 
 export type ColumnSetup<T> = {
 	title: string
