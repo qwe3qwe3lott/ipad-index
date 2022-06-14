@@ -25,7 +25,7 @@ const initialState: MapState = {
 		{label: 'Northern America', code: '021'},
 		{label: 'Caribbean', code: '029'},
 		{label: 'Central America', code: '013'},
-		{label: 'South America', code: '015'},
+		{label: 'South America', code: '005'},
 		{label: 'Central Asia', code: '143'},
 		{label: 'Eastern Asia', code: '030'},
 		{label: 'Southern Asia', code: '034'},
