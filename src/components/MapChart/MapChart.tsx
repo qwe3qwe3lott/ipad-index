@@ -9,7 +9,7 @@ const MapChart: React.FC = () => {
 	const indexValues = useAppSelector(state => state.map.indexValues);
 
 	const data = useMemo(() => {
-		const data: (string | number)[][] = [['County', 'Index']];
+		const data: (string | number)[][] = [['County', 'Index'], ['Min', -10], ['Max', 10]];
 		for (const indexValue of indexValues) {
 			data.push([indexValue.country, indexValue.index]);
 		}
@@ -18,7 +18,7 @@ const MapChart: React.FC = () => {
 
 	const options = {
 		region: selectedRegion.code,
-		colorAxis: {colors: ['#FFFFFF', '#00853F']},
+		colorAxis: {colors: ['#000e8b', '#FFFFFF', '#00853F']},
 		backgroundColor: '#6B6A6A',
 		datalessRegionColor: '#F5DBE2',
 		defaultColor: '#F5DBE2'
